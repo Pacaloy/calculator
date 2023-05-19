@@ -4,6 +4,7 @@ import { apiFetch, calcExpression } from './helpers';
 import './App.css';
 
 function App() {
+  const [userId, setUserId] = useState('');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [expression, setExpression] = useState(['']);
@@ -39,7 +40,18 @@ function App() {
   };
 
   useEffect(() => {
-    apiFetch('/app/user', 'POST', { os: 'ios' }).then(data => console.log(data));
+    // Get os info
+    const ua = navigator.userAgent;
+    const os = ua.includes('iPhone') ? 'ios' : 'android';
+
+    if (localStorage.getItem('uuid')) return;
+
+    // Fetch unique id
+    apiFetch('/app/user', 'POST', { os }).then(data => {
+      const uuid = data.user.uuid;
+      localStorage.setItem('uuid', uuid);
+      setUserId(uuid);
+    });
   }, []);
 
   return (
