@@ -1,6 +1,6 @@
 import { Calc } from "calc-js";
 
-const URL = 'http://localhost:5000';
+const URL = 'http://localhost:5000'; // TODO fix URL
 
 export function apiFetch(endpoint, method, body) {
   if (method !== 'GET') {
