@@ -29,7 +29,7 @@ function History() {
       ) : (
         <div>
           {entries.map(entry => (
-            <Entry key={`entry${entry.id}`} data={entry} />
+            <Entry key={`entry${entry.id}`} calculation={entry.calculation} />
           ))}
         </div>
       )}
