@@ -40,3 +40,84 @@
 .read-the-docs {
   color: #888;
 }
+
+:root {
+  --black1: #000000;
+  --gray1: #292A2D;
+  --gray2: #4D5057;
+  --gray3: #3B3D43;
+  --gray4: #5B5E67;
+  --blue1: #3764B4;
+  --white1: #FFFFFF;
+}
+
+h3 {
+  height: 1rem;
+  color: var(--gray4);
+}
+
+h2 {
+  height: 1.5rem;
+  color: var(--white1);
+
+}
+
+#button1,
+#button2 {
+  background-color: var(--gray4);
+}
+
+#button5,
+#button6,
+#button7,
+#button9,
+#button10,
+#button11,
+#button13,
+#button14,
+#button15,
+#button17,
+#button18,
+#button19 {
+  background-color: var(--gray3);
+}
+
+#button3,
+#button4,
+#button8,
+#button12,
+#button16,
+#button20 {
+  background-color: var(--blue1);
+}
+
+#button1 { grid-area: button1; }
+#button2 { grid-area: button2; }
+#button3 { grid-area: button3; }
+#button4 { grid-area: button4; }
+#button5 { grid-area: button5; }
+#button6 { grid-area: button6; }
+#button7 { grid-area: button7; }
+#button8 { grid-area: button8; }
+#button9 { grid-area: button9; }
+#button10 { grid-area: button10; }
+#button11 { grid-area: button11; }
+#button12 { grid-area: button12; }
+#button13 { grid-area: button13; }
+#button14 { grid-area: button14; }
+#button15 { grid-area: button15; }
+#button16 { grid-area: button16; }
+#button17 { grid-area: button17; }
+#button18 { grid-area: button18; }
+#button19 { grid-area: button19; }
+
+.button-container {
+  display: grid;
+  gap: 0.2rem;
+  grid-template-areas:
+  'button1 button2 button3 button4'
+  'button5 button6 button7 button8'
+  'button9 button10 button11 button12'
+  'button13 button14 button15 button16'
+  'button17 button18 button19 button20';
+}
