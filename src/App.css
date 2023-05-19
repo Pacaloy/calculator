@@ -1,8 +1,11 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .logo {
@@ -51,19 +54,39 @@
   --white1: #FFFFFF;
 }
 
-h3 {
-  height: 1rem;
-  color: var(--gray4);
+.app {
+  background-color: var(--gray1);
+  max-width: 24.375rem;
+  width: 100vw;
+  margin: 2.75rem auto auto auto;
+  border-radius: 1.5rem 1.5rem 0 0;
+  padding-top: 2.1875rem;
+  overflow: hidden;
+  flex-grow: 1;
 }
 
-h2 {
-  height: 1.5rem;
-  color: var(--white1);
+.input {
+  color: var(--gray4);
+  text-align: end;
+  font-size: 2.25rem;
+  height: 4rem;
+  margin-right: 1.5rem;
+  white-space: nowrap;
+}
 
+.output {
+  color: var(--white1);
+  text-align: end;
+  font-size: 5.75rem;
+  height: 8.5rem;
+  margin-right: 1.5rem;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
 }
 
 #button1,
-#button2 {
+#button2,
+#button3 {
   background-color: var(--gray4);
 }
 
@@ -82,7 +105,6 @@ h2 {
   background-color: var(--gray3);
 }
 
-#button3,
 #button4,
 #button8,
 #button12,
@@ -113,11 +135,21 @@ h2 {
 
 .button-container {
   display: grid;
-  gap: 0.2rem;
+  gap: 0.125rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-areas:
   'button1 button2 button3 button4'
   'button5 button6 button7 button8'
   'button9 button10 button11 button12'
   'button13 button14 button15 button16'
   'button17 button18 button19 button20';
+  padding-left: 0.125rem;
+  padding-right: 0.125rem;
+}
+
+.button-container button {
+  height: 5.875rem;
+  border-radius: 1rem;
+  padding: unset;
+  font-size: 1.5rem;
 }

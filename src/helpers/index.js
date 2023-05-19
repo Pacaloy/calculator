@@ -27,10 +27,10 @@ function calculate(operation, numStringA, numStringB) {
     case '-':
       result = new Calc(numA).minus(numB).finish();
       break;
-    case 'x':
+    case '×':
       result = new Calc(numA).multiply(numB).finish();
       break;
-    case '/':
+    case '÷':
       result = new Calc(numA).divide(numB).finish();
       break;
     case '%':
@@ -52,7 +52,7 @@ export function calcExpression(arr) {
   }
 
   // MD from MDAS order of operation
-  const MD = ['x', '/', '%'];
+  const MD = ['×', '÷', '%'];
   // AS from MDAS order of operation
   const AS = ['+', '-'];
 

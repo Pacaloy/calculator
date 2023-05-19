@@ -5,12 +5,14 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/history' element={<History />} />
-      </Routes>
-    </BrowserRouter>
+    <div className='app'>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/history' element={<History />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };
 
