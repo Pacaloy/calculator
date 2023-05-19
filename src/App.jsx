@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Calc } from 'calc-js';
 import { apiFetch, calcExpression } from './helpers';
 import './App.css';
 
 function App() {
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(localStorage.getItem('uuid'));
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [expression, setExpression] = useState(['']);
@@ -39,6 +38,15 @@ function App() {
     setExpression(expressionArr);
   };
 
+  // Create an entry to the user's history
+  const createEntry = () => {
+    const calculation = `${input} = ${output}`;
+    apiFetch(`/app/user/${userId}/transaction`, 'POST', { calculation })
+    .then(data => {
+      console.log('Entry added!');
+    });
+  };
+
   useEffect(() => {
     // Get os info
     const ua = navigator.userAgent;
@@ -47,13 +55,14 @@ function App() {
     if (localStorage.getItem('uuid')) return;
 
     // Fetch unique id
-    apiFetch('/app/user', 'POST', { os }).then(data => {
+    apiFetch('/app/user', 'POST', { os })
+    .then(data => {
       const uuid = data.user.uuid;
       localStorage.setItem('uuid', uuid);
       setUserId(uuid);
     });
   }, []);
-
+console.log(expression) // TODO delete
   return (
     <>
       <h3>{input}</h3>
@@ -78,7 +87,7 @@ function App() {
         <button id='button17' onClick={e => numClick(e)}>0</button>
         <button id='button18' onClick={e => numClick(e)}>.</button>
         <button id='button19'>H</button>
-        <button id='button20'>=</button>
+        <button id='button20' onClick={() => createEntry()}>=</button>
       </div>
     </>
   );
