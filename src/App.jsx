@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Calc } from 'calc-js';
+import { apiFetch, calcExpression } from './helpers';
 import './App.css';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   const [output, setOutput] = useState('');
   const [expression, setExpression] = useState(['']);
 
+  // Function everytime user clicks a number or decimal point
   const numClick = (e) => {
     const expressionArr = expression;
 
@@ -17,6 +19,7 @@ function App() {
     setOutput(calcExpression(expressionArr.slice()));
   };
 
+  // Function everytime user clicks an operator
   const operatorClick = (e) => {
     const expressionArr = expression;
 
@@ -35,79 +38,9 @@ function App() {
     setExpression(expressionArr);
   };
 
-// TODO
-
-console.log(expression);
-
-function calculate(operation, numStringA, numStringB) {
-  let numA = Number(numStringA);
-  let numB = Number(numStringB);
-  let result = 0;
-
-  switch (operation) {
-    case '+':
-      result = new Calc(numA).sum(numB).finish();
-      break;
-    case '-':
-      result = new Calc(numA).minus(numB).finish();
-      break;
-    case 'x':
-      result = new Calc(numA).multiply(numB).finish();
-      break;
-    case '/':
-      result = new Calc(numA).divide(numB).finish();
-      break;
-    case '%':
-      result = numA % numB;
-      break;
-  }
-
-  return String(result);
-};
-
-console.log(calculate('x', 3, 4));
-
-function calcExpression(arr) {
-  const expressionArr = arr;
-
-  // Remove excess from expression
-  if (expressionArr[expressionArr.length - 1] === '') {
-    for (let i = 0; i < 2; i++) {
-      expressionArr.pop();
-    }
-  }
-
-  // MD from MDAS order of operation
-  const MD = ['x', '/', '%'];
-  // AS from MDAS order of operation
-  const AS = ['+', '-'];
-
-  while (expressionArr.length > 1) {
-    // Calculate all Modulo, Multiplication, and Division first
-    if (MD.some(operator => expressionArr.includes(operator))) {
-      // Get operator index for Modulo, Multiplication, and Division
-      let operatorIndex = expressionArr.findIndex(expressionElement => MD.some(operator => operator === expressionElement));
-      console.log(expressionArr);
-      expressionArr.splice(operatorIndex - 1, 3, calculate(expressionArr[operatorIndex], expressionArr[operatorIndex - 1], expressionArr[operatorIndex + 1]));
-    // Calculate all Addition and Subtraction after
-    } else {
-      // Get operator index for Addition and Subtraction
-      let operatorIndex = expressionArr.findIndex(expressionElement => AS.some(operator => operator === expressionElement));
-      console.log(expressionArr);
-      expressionArr.splice(operatorIndex - 1, 3, calculate(expressionArr[operatorIndex], expressionArr[operatorIndex - 1], expressionArr[operatorIndex + 1]));
-    }
-  }
-
-  return String(expressionArr[0]);
-};
-
-const expressionA = ['1', '+', '2', '-', '3', 'x', '4', '/', '5'];
-const expressionB = ['1', '+', '2', '-', '3', 'x', '4', '/', '5', '%', ''];
-
-console.log(calcExpression(expressionA));
-console.log(calcExpression(expressionB));
-
-// TODO
+  useEffect(() => {
+    apiFetch('/app/user', 'POST', { os: 'ios' }).then(data => console.log(data));
+  }, []);
 
   return (
     <>
