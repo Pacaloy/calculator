@@ -1,6 +1,6 @@
 import { Calc } from "calc-js";
 
-const URL = 'http://localhost:5000'; // TODO fix URL
+const URL = import.meta.env.VITE_URL;
 
 // Function for fetching with GET, POST, PUT, and DELETE method
 export function apiFetch(endpoint, method, body) {
