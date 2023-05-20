@@ -2,6 +2,7 @@ import { Calc } from "calc-js";
 
 const URL = 'http://localhost:5000'; // TODO fix URL
 
+// Function for fetching with GET, POST, PUT, and DELETE method
 export function apiFetch(endpoint, method, body) {
   if (method !== 'GET') {
     return fetch(URL + endpoint, {
@@ -14,7 +15,7 @@ export function apiFetch(endpoint, method, body) {
   }
 };
 
-// Arithemetic operations
+// Arithmetic operations
 function calculate(operation, numStringA, numStringB) {
   let numA = Number(numStringA);
   let numB = Number(numStringB);
@@ -75,4 +76,16 @@ export function calcExpression(arr) {
   }
 
   return String(expressionArr[0]);
+};
+
+// Returns true if a number is divided by zero
+export function checkDivideByZero(arr) {
+  const expressionArr = arr;
+
+  for (let i = 1; i < expressionArr.length - 1; i++) {
+    const divSign = '÷';
+    if (expressionArr[i] === divSign && Number(expressionArr[i + 1]) === 0) return true;
+  }
+
+  return false;
 };

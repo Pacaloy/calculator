@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiFetch, calcExpression } from '../../helpers';
+import { apiFetch, calcExpression, checkDivideByZero } from '../../helpers';
 import Icon from '@mdi/react';
 import { mdiClose, mdiDivision, mdiEqual, mdiHistory, mdiMinus, mdiPercentOutline, mdiPlus, mdiPlusMinusVariant } from '@mdi/js';
 
@@ -58,6 +58,14 @@ function Home() {
     // Returns if input is invalid
     if (expressionArr.length === 1 || expressionArr[expressionArr.length - 1] === '' || expressionArr[expressionArr.length - 1] === '-' ) return;
     
+    // Check if a number is divided by zero
+    if (checkDivideByZero(expressionArr)) {
+      setOutput('Invalid');
+      setExpression(['']);
+      console.log('Cannot divide by 0');
+      return;
+    }
+
     const answer = calcExpression(expressionArr.slice());
 
     setOutput(answer);
