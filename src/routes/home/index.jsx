@@ -90,7 +90,6 @@ function Home() {
   const toggleSign = () => {
     const expressionArr = expression;
     const isNegative = !isNumNegative;
-    console.log(isNegative) // TODO remove
 
     // Add or remove negative sign
     if (isNegative) {
@@ -128,7 +127,7 @@ function Home() {
       setUserId(uuid);
     });
   }, []);
-console.log(expression) // TODO delete
+
   return (
     <>
       <div className='inputContainer'>

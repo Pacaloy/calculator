@@ -7,27 +7,57 @@ import { mdiTrashCanOutline } from '@mdi/js'
 function History() {
   const [isEmpty, setIsEmpty] = useState(true);
   const [entries, setEntries] = useState([]);
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  const getUid = () => {
+    const uid = localStorage.getItem('uuid');
+    return uid;
+  };
 
   const deleteHistory = () => {
-    console.log('del')
+    const uid = getUid();
+    
+    apiFetch(`/app/user/${uid}/transaction`, 'DELETE')
+    .then(data => {
+      console.log(data);
+      setEntries([]);
+      setIsEmpty(true);
+    });
+  };
+
+  const promptDeleteHistory = () => {
+    setIsShowModal(true);
   };
 
   useEffect(() => {
-    const uid = localStorage.getItem('uuid');
+    const uid = getUid();
+
+    // Get user's history
     apiFetch(`/app/user/${uid}/transaction`)
     .then(data => {
-      console.log(data)
       if (data.length !== 0) {
         setEntries(data.reverse());
         setIsEmpty(false);
       };
     });
   }, []);
-
+console.log(isShowModal);
   return (
     <>
+      {isShowModal && (
+        <>
+          <div className="modal-mask"></div>
+          <div className="modal">
+            <div className="modal-text">Clear history?</div>
+            <div className="modal-options">
+              <span>Cancel</span>
+              <span>Confirm</span>
+            </div>
+          </div>
+        </>
+      )}
       <div className='history-title'>History</div>
-      <div className="trash" onClick={() => deleteHistory()}><Icon path={mdiTrashCanOutline} size={1.3} /></div>
+      {!isEmpty && <div className="trash" onClick={() => promptDeleteHistory()}><Icon path={mdiTrashCanOutline} size={1.3} /></div>}
       {isEmpty ? (
         <div className="empty-view">
           <div>Empty!</div>
