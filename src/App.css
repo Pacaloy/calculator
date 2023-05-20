@@ -31,8 +31,10 @@
   padding-top: 2.1875rem;
   flex-grow: 1;
   overflow-x: hidden;
+  position: relative;
 }
 
+/* Home page */
 .inputContainer, .outputContainer {
   width: 100%;
 }
@@ -128,4 +130,63 @@
   border-radius: 1rem;
   padding: unset;
   font-size: 3rem;
+}
+
+/* History page */
+.history-title {
+  font-size: 1.5rem;
+  line-height: 0.75rem;
+  margin-bottom: 1.875rem;
+}
+
+.empty-view {
+  background-color: var(--gray3);
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  height: 10.25rem;
+  border-radius: 1rem;
+  padding-top: 3rem;
+}
+
+.empty-view div {
+  font-size: 1.375rem;
+}
+
+.trash {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.entries-container {
+  background-color: var(--gray2);
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-radius: 1rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.entry-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.entry-container:not(:last-child) {
+  border-bottom: 2px solid var(--gray3);
+  padding-bottom: 1.25rem;
+}
+
+.entry-container:not(:first-child) {
+  padding-top: 1.25rem;
+}
+
+.entry-container div {
+  font-size: 1.25rem;
+  text-align: start;
+  margin-left: 1.5rem;
+  display: flex;
+  justify-content: flex-start;
+  white-space: nowrap;
 }

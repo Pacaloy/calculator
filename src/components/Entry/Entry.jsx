@@ -3,7 +3,7 @@ function Entry(props) {
   console.log(expression);
 
   return (
-    <div>
+    <div className='entry-container'>
       <div>{expression[0]}</div>
       <div>={expression[1]}</div>
     </div>

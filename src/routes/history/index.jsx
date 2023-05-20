@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "../../helpers";
 import Entry from "../../components/Entry/Entry";
+import Icon from '@mdi/react';
+import { mdiTrashCanOutline } from '@mdi/js'
 
 function History() {
   const [isEmpty, setIsEmpty] = useState(true);
   const [entries, setEntries] = useState([]);
+
+  const deleteHistory = () => {
+    console.log('del')
+  };
 
   useEffect(() => {
     const uid = localStorage.getItem('uuid');
@@ -12,7 +18,7 @@ function History() {
     .then(data => {
       console.log(data)
       if (data.length !== 0) {
-        setEntries(data);
+        setEntries(data.reverse());
         setIsEmpty(false);
       };
     });
@@ -20,14 +26,15 @@ function History() {
 
   return (
     <>
-      <h2>History</h2>
+      <div className='history-title'>History</div>
+      <div className="trash" onClick={() => deleteHistory()}><Icon path={mdiTrashCanOutline} size={1.3} /></div>
       {isEmpty ? (
-        <div>
+        <div className="empty-view">
           <div>Empty!</div>
           <div>Do some calculations/</div>
         </div>
       ) : (
-        <div>
+        <div className='entries-container'>
           {entries.map(entry => (
             <Entry key={`entry${entry.id}`} calculation={entry.calculation} />
           ))}
