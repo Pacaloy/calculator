@@ -10,16 +10,24 @@ function Home() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [expression, setExpression] = useState(['']);
+  const [isNumNegative, setIsNumNegative] = useState(false);
 
   // Function everytime user clicks a number or decimal point
   const numClick = (e) => {
+    const digit = e.target.innerText;
     const expressionArr = expression;
 
-    expressionArr[expressionArr.length - 1] = expressionArr[expressionArr.length - 1] + '' + e.target.innerText;
+    // Appends a number in the input
+    expressionArr[expressionArr.length - 1] = expressionArr[expressionArr.length - 1] + '' + digit;
 
-    setInput(expressionArr.join(' '));
-    setExpression(expressionArr);
-    setOutput(calcExpression(expressionArr.slice()));
+    if (output) {
+      setInput(digit);
+      setOutput('');
+      setExpression([digit]);
+    } else {
+      setInput(expressionArr.join(' '));
+      setExpression(expressionArr);
+    }
   };
 
   // Function everytime user clicks an operator
@@ -29,7 +37,7 @@ function Home() {
     if (expressionArr[0] === '') return;
 
     // If expression ends with an operator
-    if (expressionArr[expressionArr.length - 1] === '') {
+    if (expressionArr[expressionArr.length - 1] === '' || expressionArr[expressionArr.length - 1] === '-' ) {
       // Change last operator
       expressionArr[expressionArr.length - 2] = operator;
     } else {
@@ -38,16 +46,57 @@ function Home() {
     }
 
     setInput(expressionArr.join(' '));
+    setOutput('');
     setExpression(expressionArr);
+    setIsNumNegative(false);
   };
 
-  // Create an entry to the user's history
-  const createEntry = () => {
+  // Function everytime user clicks equal sign
+  const equalsClick = () => {
+    const expressionArr = expression;
+    
+    // Returns if input is invalid
+    if (expressionArr.length === 1 || expressionArr[expressionArr.length - 1] === '' || expressionArr[expressionArr.length - 1] === '-' ) return;
+    
+    const answer = calcExpression(expressionArr.slice());
+
+    setOutput(answer);
+    setExpression([answer]);
+    if (answer < 0) setIsNumNegative(true);
+
+    // Create an entry to the user's history
     const calculation = `${input} = ${output}`;
     apiFetch(`/app/user/${userId}/transaction`, 'POST', { calculation })
     .then(() => {
       console.log('Entry added!');
     });
+  };
+
+  // Toggle number sign of current input
+  const toggleSign = () => {
+    const expressionArr = expression;
+    const isNegative = !isNumNegative;
+    console.log(isNegative) // TODO remove
+
+    // Add or remove negative sign
+    if (isNegative) {
+      expressionArr[expressionArr.length - 1] = '-' + expressionArr[expressionArr.length - 1]
+    } else {
+      expressionArr[expressionArr.length - 1] = expressionArr[expressionArr.length - 1].substring(1);;
+    }
+
+    setInput(expressionArr.join(' '));
+    setOutput('');
+    setExpression(expressionArr);
+    setIsNumNegative(isNegative);
+  };
+
+  // Clear all and reset
+  const allClear = () => {
+    setInput('');
+    setOutput('');
+    setExpression(['']);
+    setIsNumNegative(false);
   };
 
   useEffect(() => {
@@ -71,8 +120,8 @@ console.log(expression) // TODO delete
       <div className='input'>{input}</div>
       <div className='output'>{output}</div>
       <div className='button-container'>
-        <button id='button1'>AC</button>
-        <button id='button2'><Icon path={mdiPlusMinusVariant} size={1.5} /></button>
+        <button id='button1' onClick={() => allClear()}>AC</button>
+        <button id='button2' onClick={() => toggleSign()}><Icon path={mdiPlusMinusVariant} size={1.5} /></button>
         <button id='button3' onClick={e => operatorClick('%')}><Icon path={mdiPercentOutline} size={1.5} /></button>
         <button id='button4' onClick={e => operatorClick('÷')}><Icon path={mdiDivision} size={1.5} /></button>
         <button id='button5' onClick={e => numClick(e)}>7</button>
@@ -90,7 +139,7 @@ console.log(expression) // TODO delete
         <button id='button17' onClick={e => numClick(e)}>.</button>
         <button id='button18' onClick={e => numClick(e)}>0</button>
         <button id='button19' onClick={() => navigate('/history')}><Icon path={mdiHistory} size={1.5} /></button>
-        <button id='button20' onClick={() => createEntry()}><Icon path={mdiEqual} size={1.5} /></button>
+        <button id='button20' onClick={() => equalsClick()}><Icon path={mdiEqual} size={1.5} /></button>
       </div>
     </>
   );
