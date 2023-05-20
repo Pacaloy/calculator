@@ -17,6 +17,12 @@ function Home() {
     const digit = e.target.innerText;
     const expressionArr = expression;
 
+    // Restrict inputting leading zeroes
+    if ((expressionArr[expressionArr.length - 1] === '0' || expressionArr[expressionArr.length - 1] === '-0') && digit === '0') return;
+
+    // Restring multiple decimal point
+    if (expressionArr[expressionArr.length - 1].includes('.') && digit === '.') return;
+
     // Appends a number in the input
     expressionArr[expressionArr.length - 1] = expressionArr[expressionArr.length - 1] + '' + digit;
 
