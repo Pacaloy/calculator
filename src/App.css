@@ -31,6 +31,7 @@
   padding-top: 2.1875rem;
   flex-grow: 1;
   overflow-x: hidden;
+  overscroll-behavior-y: auto;
   position: relative;
 }
 
