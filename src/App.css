@@ -30,25 +30,33 @@
   border-radius: 1.5rem 1.5rem 0 0;
   padding-top: 2.1875rem;
   flex-grow: 1;
+  overflow-x: hidden;
+}
+
+.inputContainer, .outputContainer {
+  width: 100%;
+}
+
+.input, .output {
+  text-align: end;
+  white-space: nowrap;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .input {
   color: var(--gray4);
-  text-align: end;
   font-size: 2.25rem;
   height: 4rem;
   margin-right: 1.5rem;
-  white-space: nowrap;
 }
 
 .output {
   color: var(--white1);
-  text-align: end;
   font-size: 5.75rem;
   height: 8.5rem;
   margin-right: 1.5rem;
   margin-bottom: 0.5rem;
-  white-space: nowrap;
 }
 
 #button1,

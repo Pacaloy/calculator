@@ -131,8 +131,12 @@ function Home() {
 console.log(expression) // TODO delete
   return (
     <>
-      <div className='input'>{input}</div>
-      <div className='output'>{output}</div>
+      <div className='inputContainer'>
+        <div className='input'>{input}</div>
+      </div>
+      <div className='outputContainer'>
+        <div className='output'>{output}</div>
+      </div>
       <div className='button-container'>
         <button id='button1' onClick={() => allClear()}>AC</button>
         <button id='button2' onClick={() => toggleSign()}><Icon path={mdiPlusMinusVariant} size={1.5} /></button>
