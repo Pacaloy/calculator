@@ -79,7 +79,7 @@ function Home() {
     if (answer < 0) setIsNumNegative(true);
 
     // Create an entry to the user's history
-    const calculation = `${input} = ${answer}`;console.log(calculation)
+    const calculation = `${input} = ${answer}`;
     apiFetch(`/app/user/${userId}/transaction`, 'POST', { calculation })
     .then(() => {
       console.log('Entry added!');

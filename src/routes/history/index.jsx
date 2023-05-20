@@ -23,6 +23,8 @@ function History() {
       setEntries([]);
       setIsEmpty(true);
     });
+
+    setIsShowModal(false);
   };
 
   const promptDeleteHistory = () => {
@@ -41,7 +43,7 @@ function History() {
       };
     });
   }, []);
-console.log(isShowModal);
+
   return (
     <>
       {isShowModal && (
@@ -50,8 +52,8 @@ console.log(isShowModal);
           <div className="modal">
             <div className="modal-text">Clear history?</div>
             <div className="modal-options">
-              <span>Cancel</span>
-              <span>Confirm</span>
+              <span onClick={() => setIsShowModal(false)}>Cancel</span>
+              <span onClick={() => deleteHistory(false)}>Confirm</span>
             </div>
           </div>
         </>
