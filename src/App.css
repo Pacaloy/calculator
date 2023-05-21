@@ -127,6 +127,7 @@
 }
 
 .button-container button {
+  color: var(--white1);
   height: 5.875rem;
   border-radius: 1rem;
   padding: unset;
